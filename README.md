@@ -3,7 +3,7 @@ Purpose
 > To provide information with regards to the status of every bank in **Bacolod City**.
 
 Vision
-> The future objective of this application is to enlarge its service not just within **Bacolod City** but to the whole country of the **Philippines** 
+> The future objective of this application is to enlarge its service not just within **Bacolod City** but to the whole country of the **Philippines**.
 
 </br></br></br>
 <p align="center">The <b>Bacolod Bank Checker</b> is empowered by Laravel Framework</p>

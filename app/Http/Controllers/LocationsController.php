@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Location;
 
 class LocationsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>['index','show']]);
+    }    
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,8 @@ class LocationsController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::orderBy('created_at','desc')->paginate(10);
+        return view('settings.locations.index')->with('locations',$locations);
     }
 
     /**
@@ -23,7 +30,7 @@ class LocationsController extends Controller
      */
     public function create()
     {
-        //
+        return view('settings.locations.create');
     }
 
     /**
@@ -34,7 +41,36 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+          'city'=>'required',
+          'shortname'=>'required',
+          'cover_image'=>'image|nullable|max:1999'
+        ]);
+      
+      //handle file upload
+      if ($request->hasFile('cover_image')) {
+          // Get filename with extention
+          $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+          // Get just filename
+          $filename = $request->input('city');
+          // Get just ext
+          $extension = $request->file('cover_image')->getClientOriginalExtension();
+          // filename to store
+          $fileNameToStore = $filename.'_'.time().'.'.$extension;
+          // Upload image
+          $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
+      } else {
+          $fileNameToStore = 'noimage.jpg';
+      }
+
+      //Create Location
+      $location = new Location;
+      $location->city = $request->input('city');
+      $location->shortname = $request->input('shortname');
+      $location->cover_image = $fileNameToStore;
+      $location->save();
+
+      return redirect('/settings/locations')->with('success','New Location Added');
     }
 
     /**
@@ -45,7 +81,8 @@ class LocationsController extends Controller
      */
     public function show($id)
     {
-        //
+        $location = Location::find($id);
+        return view('settings.locations.show')->with('location',$location);
     }
 
     /**
@@ -56,7 +93,14 @@ class LocationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $location = Location::find($id);
+
+        // Check user if correct
+        // if (auth()->user()->id != $location->user_id) {
+        //     return redirect('/posts')->with('error','Unauthorized Page');        
+        // }
+    
+        return view('settings.locations.edit')->with('location',$location);
     }
 
     /**
@@ -68,7 +112,36 @@ class LocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'city'=>'required',
+            'shortname'=>'required',
+            'cover_image'=>'image|nullable|max:1999'
+          ]);
+        
+        //handle file upload
+        if ($request->hasFile('cover_image')) {
+            // Get filename with extention
+            $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+            // Get just filename
+            $filename = $request->input('city');
+            // Get just ext
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            // filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload image
+            $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
+        }
+
+        //Create Location
+        $location = Location::find($id);
+        $location->city = $request->input('city');
+        $location->shortname = $request->input('shortname');
+        if ($request->hasFile('cover_image')) {
+            $location->cover_image = $fileNameToStore;        
+        }        
+        $location->save();
+
+        return redirect('/settings/locations/')->with('success','Location Updated');
     }
 
     /**
@@ -79,6 +152,18 @@ class LocationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $location = Location::find($id);
+        
+        // Check user if correct
+        // if (auth()->user()->id != $location->user_id) {
+        //     return redirect('/posts')->with('error','Unauthorized Page');        
+        // }
+
+        if ($location->cover_image != 'noimage.jpg') {
+            Storage::delete('public/cover_images/'.$location->cover_image);
+        }
+
+        $location->delete();
+        return redirect('/settings/locations')->with('success','Location Removed');  
     }
 }

@@ -38,7 +38,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/settings/banks">Bank</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/settings/branch">Branch</a>
+                    <a class="dropdown-item" href="/settings/branches">Branch</a>
                   </div>
                 </li>              
                 @endguest

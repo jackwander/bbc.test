@@ -14,6 +14,7 @@
               </div>
               <div class="col-md-8 col-sm-8">
                 <h3><a href="/settings/locations/{{$location->location_id}}">{{$location->city}}</a></h3>
+                <p>{!!$location->body!!}</p>
                 <small>Added on {{$location->created_at}}</small>
               </div>
             </div>

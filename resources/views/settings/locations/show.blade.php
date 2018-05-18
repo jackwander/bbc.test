@@ -8,6 +8,7 @@
   <div class="d-flex justify-content-center">
     <h1>{{$location->city}} ({{$location->shortname}})</h1>
   </div>
+    <p>{!!$location->body!!}</p>
   <hr>
   @if (!Auth::guest())
     {{-- @if (Auth::user()->id == $location->user_id) --}}

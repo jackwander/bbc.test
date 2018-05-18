@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>Locations</h1>
+  
+    <h1>Locations <small><a href="locations/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
+
   @if(count($locations) > 0)
       @foreach ($locations as $location)
         <div class="card">

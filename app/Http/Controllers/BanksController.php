@@ -42,13 +42,31 @@ class BanksController extends Controller
     {
         $this->validate($request, [
           'fullname'=>'required',
-          'shortname'=>'required'
+          'shortname'=>'required',
+          'cover_image'=>'image|nullable|max:1999'          
         ]);
+
+      //handle file upload
+      if ($request->hasFile('cover_image')) {
+          // Get filename with extention
+          $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+          // Get just filename
+          $filename = $request->input('shortname');
+          // Get just ext
+          $extension = $request->file('cover_image')->getClientOriginalExtension();
+          // filename to store
+          $fileNameToStore = $filename.'_'.time().'.'.$extension;
+          // Upload image
+          $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
+      } else {
+          $fileNameToStore = 'noimage.jpg';
+      }
 
       //Create Bank
       $bank = new Bank;
       $bank->fullname = $request->input('fullname');
       $bank->shortname = strtoupper($request->input('shortname'));
+      $bank->cover_image = $fileNameToStore;      
       $bank->save();
 
       return redirect('/settings/banks')->with('success', $bank->fullname.' is Added');        
@@ -88,13 +106,33 @@ class BanksController extends Controller
     {
         $this->validate($request, [
           'fullname'=>'required',
-          'shortname'=>'required'
+          'shortname'=>'required',
+          'cover_image'=>'image|nullable|max:1999'          
         ]);
+      $bank = Bank::find($id);
+
+      //handle file upload
+      if ($request->hasFile('cover_image')) {
+          Storage::delete('public/cover_images/'.$bank->cover_image);
+
+          // Get filename with extention
+          $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
+          // Get just filename
+          $filename = $request->input('shortname');
+          // Get just ext
+          $extension = $request->file('cover_image')->getClientOriginalExtension();
+          // filename to store
+          $fileNameToStore = $filename.'_'.time().'.'.$extension;
+          // Upload image
+          $path = $request->file('cover_image')->storeAs('public/cover_images',$fileNameToStore);
+      }
 
       //Create Bank
-      $bank = Bank::find($id);
       $bank->fullname = $request->input('fullname');
       $bank->shortname = strtoupper($request->input('shortname'));
+      if ($request->hasFile('cover_image')) {
+          $location->cover_image = $fileNameToStore;        
+      }          
       $bank->save();
 
       return redirect('/settings/banks')->with('success',$bank->fullname.' is Updated');  

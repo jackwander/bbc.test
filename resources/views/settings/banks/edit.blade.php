@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>Edit Bank</h1>
-  {!! Form::open(['action' => ['BanksController@update', $bank->bank_id],'method' => 'POST']) !!}
+  {!! Form::open(['action' => ['BanksController@update', $bank->bank_id],'method' => 'POST','enctype'=>'multipart/form-data']) !!}
       <div class="form-group">
         {{Form::label('fullname','Bank full name')}}
         {{Form::text('fullname',$bank->fullname, ['class'=>'form-control','placeholder'=>'Bank Full Name'])}}
@@ -11,6 +11,9 @@
         {{Form::label('shortname','Bank Short Name')}}
         {{Form::text('shortname',$bank->shortname, ['class'=>'form-control','placeholder'=>'Bank Short Name'])}}
       </div>      
+      <div class="form-group">
+        {{Form::file('cover_image')}}
+      </div>       
       {{Form::hidden('_method','PUT')}}
         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#submitForm">Submit</a>
         

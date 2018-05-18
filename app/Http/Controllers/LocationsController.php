@@ -19,7 +19,7 @@ class LocationsController extends Controller
      */
     public function index()
     {
-        $locations = Location::orderBy('created_at','desc')->paginate(10);
+        $locations = Location::orderBy('city','asc')->paginate(10);
         return view('settings.locations.index')->with('locations',$locations);
     }
 
@@ -44,6 +44,7 @@ class LocationsController extends Controller
       $this->validate($request, [
           'city'=>'required',
           'shortname'=>'required',
+          'body'=>'required',
           'cover_image'=>'image|nullable|max:1999'
         ]);
       
@@ -67,6 +68,7 @@ class LocationsController extends Controller
       $location = new Location;
       $location->city = $request->input('city');
       $location->shortname = $request->input('shortname');
+      $location->body = $request->input('body');
       $location->cover_image = $fileNameToStore;
       $location->save();
 
@@ -115,11 +117,16 @@ class LocationsController extends Controller
         $this->validate($request, [
             'city'=>'required',
             'shortname'=>'required',
+            'body'=>'required',
             'cover_image'=>'image|nullable|max:1999'
           ]);
-        
+        //Find Data
+        $location = Location::find($id);
+
         //handle file upload
         if ($request->hasFile('cover_image')) {
+            Storage::delete('public/cover_images/'.$location->cover_image);
+
             // Get filename with extention
             $fileNameWithExt = $request->file('cover_image')->getClientOriginalName();
             // Get just filename
@@ -133,9 +140,9 @@ class LocationsController extends Controller
         }
 
         //Create Location
-        $location = Location::find($id);
         $location->city = $request->input('city');
         $location->shortname = $request->input('shortname');
+        $location->body = $request->input('body');        
         if ($request->hasFile('cover_image')) {
             $location->cover_image = $fileNameToStore;        
         }        

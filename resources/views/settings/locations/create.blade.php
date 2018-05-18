@@ -12,6 +12,10 @@
         {{Form::text('shortname','', ['class'=>'form-control','placeholder'=>'Short Name'])}}
       </div>
       <div class="form-group">
+        {{Form::label('body','Body')}}
+        {{Form::textarea('body','', ['id'=>'article-ckeditor','class'=>'form-control','placeholder'=>'Body Text'])}}
+      </div>      
+      <div class="form-group">
         {{Form::file('cover_image')}}
       </div>
         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#submitForm">Submit</a>

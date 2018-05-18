@@ -17,6 +17,9 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
+    <!--Font Awesome-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/font-awesome/web-fonts-with-css/css/fontawesome-all.css')}}">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>Banks</h1> <a href="banks/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a>
+  <h1>Banks <small><a href="banks/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
   @if(count($banks) > 0)
         <div class="card">
           <div class="card-body">
@@ -34,7 +34,6 @@
                                 {{Form::hidden('_method','DELETE')}}
                                 {{Form::submit('Yes',['class'=>'btn btn-danger'])}}
                                 {!!Form::close()!!}
-                              {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                             </div>
                           </div>
                         </div>

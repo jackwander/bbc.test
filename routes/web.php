@@ -13,6 +13,7 @@
 
 Route::get('/', 'PagesController@index');
 Route::resource('/settings/locations','LocationsController');
+Route::resource('/settings/banks','BanksController');
 
 
 Auth::routes();

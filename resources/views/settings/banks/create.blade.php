@@ -2,7 +2,7 @@
 
 @section('content')
   <h1>New Bank</h1>
-  {!! Form::open(['action' => 'BanksController@store','method' => 'POST']) !!}
+  {!! Form::open(['action' => 'BanksController@store','method' => 'POST','onsubmit'=>'return confirm("Are you sure to submit this?")']) !!}
       <div class="form-group">
         {{Form::label('fullname','Bank full name')}}
         {{Form::text('fullname','', ['class'=>'form-control','placeholder'=>'Bank Full Name'])}}

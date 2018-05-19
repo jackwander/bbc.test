@@ -80,7 +80,7 @@ class BranchesController extends Controller
       $branch->status = 1;
       $branch->save();
 
-      return redirect('settings/branches/locations/'.$request->input('location_id').'/banks/'.$request->input('bank_id'))->with('success',$request->input('branch').' Added');      
+      return redirect('branches/locations/'.$request->input('location_id').'/banks/'.$request->input('bank_id'))->with('success',$request->input('branch').' Added');      
     }
     /**
      * Display the specified resource.
@@ -94,7 +94,7 @@ class BranchesController extends Controller
       $branch = Branch::find($branch_id);
       $branch->status = $status;
       $branch->save();
-      return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');
+      return redirect('/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');
     }
 
 
@@ -136,7 +136,7 @@ class BranchesController extends Controller
       $branch = Branch::find($id);
       $branch->branch_name = $request->input('branch');
       $branch->save();
-      return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');      
+      return redirect('/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');      
     }
 
     /**
@@ -150,6 +150,6 @@ class BranchesController extends Controller
         $branch = Branch::find($id);
         $branch->delete();
 
-        return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Removed');
+        return redirect('/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Removed');
     }
 }

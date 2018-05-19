@@ -14,7 +14,7 @@
     </ol>
   </nav>
   @if(count($branches) > 0)
-        <table class="table table-striped">
+        <table class="table table-striped table-condensed">
           <thead>
             <th>Branch</th>
             <th>Status</th>
@@ -25,8 +25,8 @@
           <tbody>
             @foreach ($branches as $branch)
               <tr>
-                <td>{{$branch->branch_name}}</td>
-                <td>@if ($branch->status == '1')<div class="badge badge-success">Online</div> @elseif ($branch->status == '0') <div class="badge badge-info">Offline but Open</div> @elseif ($branch->status == '2') <div class="badge badge-danger">Server Down</div> @elseif ($branch->status == '3')<div class="badge badge-danger">Closed</div>@endif</td>
+                <td class="align-middle"><h4>{{$branch->branch_name}}</h4></td>
+                <td class="align-middle">@if ($branch->status == '1')<div class="badge badge-success"><h4>Online</h4></div> @elseif ($branch->status == '0') <div class="badge badge-info"><h4>Offline but Open</h4></div> @elseif ($branch->status == '2') <div class="badge badge-danger"><h4>Server Down</h4></div> @elseif ($branch->status == '3')<div class="badge badge-danger"><h4>Closed</h4></div>@endif</td>
             @if (!Auth::guest())   
                 <td>
                   <div class="btn-group dropleft">
@@ -34,10 +34,10 @@
                       <i class="fas fa-server"></i>
                     </a>
                     <div class="dropdown-menu">
-                      <a href="/settings/branches/status/1/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-success">Online</div></a>
-                      <a href="/settings/branches/status/0/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-info">Offline but open</div></a>
-                      <a href="/settings/branches/status/2/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Server Down</div></a>
-                      <a href="/settings/branches/status/3/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Closed</div></a>
+                      <a href="/branches/status/1/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-success">Online</div></a>
+                      <a href="/branches/status/0/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-info">Offline but open</div></a>
+                      <a href="/branches/status/2/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Server Down</div></a>
+                      <a href="/branches/status/3/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Closed</div></a>
                     </div>
                   </div>                
                   <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#editBranch{{$branch->branch_id}}"><i class="fas fa-edit"></i></a>

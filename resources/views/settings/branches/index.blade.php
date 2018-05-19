@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>Branches <small><a href="branches/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
+  <h2>Location</h2>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active">Choose Location</li>

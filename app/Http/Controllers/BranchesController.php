@@ -125,6 +125,9 @@ class BranchesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $branch = Branch::find($id);
+        $branch->delete();
+
+        return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Removed');
     }
 }

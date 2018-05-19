@@ -171,6 +171,6 @@ class LocationsController extends Controller
         }
 
         $location->delete();
-        return redirect('/settings/locations')->with('success','Location Removed');  
+        return redirect('/settings/locations')->with('success', $location->city.' Removed');  
     }
 }

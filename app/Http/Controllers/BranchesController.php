@@ -12,7 +12,7 @@ class BranchesController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth',['except'=>['index','show']]);
+        $this->middleware('auth',['except'=>['index','showBranches','pickBank']]);
     }    
     /**
      * Display a listing of the resource.
@@ -82,6 +82,21 @@ class BranchesController extends Controller
 
       return redirect('settings/branches/locations/'.$request->input('location_id').'/banks/'.$request->input('bank_id'))->with('success',$request->input('branch').' Added');      
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $branch_id, $status
+     * @return \Illuminate\Http\Response
+     */
+    public function editBranchStatus($status, $branch_id)
+    {
+      // echo $status.' '.$branch_id;
+      $branch = Branch::find($branch_id);
+      $branch->status = $status;
+      $branch->save();
+      return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');
+    }
+
 
     /**
      * Display the specified resource.
@@ -114,7 +129,14 @@ class BranchesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request, [
+          'branch'=>'required'
+        ]);      
+      
+      $branch = Branch::find($id);
+      $branch->branch_name = $request->input('branch');
+      $branch->save();
+      return redirect('/settings/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');      
     }
 
     /**

@@ -148,7 +148,7 @@ class LocationsController extends Controller
         }        
         $location->save();
 
-        return redirect('/settings/locations/')->with('success',$request->('city').' Updated');
+        return redirect('/settings/locations/')->with('success',$request->input('city').' Updated');
     }
 
     /**

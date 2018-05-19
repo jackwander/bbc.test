@@ -24,11 +24,13 @@ Route::resource('/settings/banks','BanksController');
 /*
  * For Branches Route 
  */
-Route::resource('/settings/branches','BranchesController');
-Route::get('settings/branches/locations/{location_id}', 'BranchesController@pickBank');
-Route::get('settings/branches/locations/{location_id}/banks/{bank_id}', 'BranchesController@showBranches');
-Route::get('branches/add/{location_id}&{bank_id}','BranchesController@create')->name('settings.branches.create');
-Route::get('settings/branches/status/{status}/branch/{branch_id}', 'BranchesController@editBranchStatus');
+Route::resource('/branches','BranchesController');
+
+Route::resource('/branches','BranchesController');
+Route::get('branches/locations/{location_id}', 'BranchesController@pickBank');
+Route::get('branches/locations/{location_id}/banks/{bank_id}', 'BranchesController@showBranches');
+Route::get('branches/add/{location_id}&{bank_id}','BranchesController@create')->name('branches.create');
+Route::get('branches/status/{status}/branch/{branch_id}', 'BranchesController@editBranchStatus');
 
 
 

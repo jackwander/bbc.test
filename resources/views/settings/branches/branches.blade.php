@@ -3,12 +3,12 @@
 @section('content')
   <h1>Branches 
   @if (!Auth::guest())   
-    <small><a href="{{ route('settings.branches.create', [$location->location_id, $bank->bank_id]) }}" class="btn btn-secondary" data-toggle="modal" data-target="#addBranch"><i class="fas fa-plus"></i></a></small>
+    <small><a href="{{ route('branches.create', [$location->location_id, $bank->bank_id]) }}" class="btn btn-secondary" data-toggle="modal" data-target="#addBranch"><i class="fas fa-plus"></i></a></small>
   @endif
   </h1>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item" aria-current="page"><a href="/settings/branches">{{$location->city}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a href="/branches">{{$location->city}}</a></li>
       <li class="breadcrumb-item" aria-current="page"><a href="{{ url()->previous() }}">{{$bank->shortname}}</a></li>
       <li class="breadcrumb-item active">Branches</li>
     </ol>

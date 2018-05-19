@@ -16,7 +16,7 @@
                   <img style="width: 100%" src="/storage/cover_images/{{$location->cover_image}}">
               </div>
               <div class="col-md-8 col-sm-8">
-                <h3><a href="/settings/branches/locations/{{$location->location_id}}">{{$location->city}}</a></h3>
+                <h3><a href="/branches/locations/{{$location->location_id}}">{{$location->city}}</a></h3>
                 <p>{!!$location->body!!}</p>
               </div>                  
           </div>

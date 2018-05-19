@@ -7,14 +7,20 @@
           <div class="card-body">
             <table class="table table-striped">
               <thead>
-                <th>Banks</th>
+                <th width="40%">Banks</th>
                 <th><i class="fas fa-cog fa-spin"></i></th>
               </thead>
               <tbody>
                 @foreach ($banks as $bank)
                   <tr>
-                    <td>{{$bank->fullname}} ({{$bank->shortname}})</td>
                     <td>
+                      <center>
+                        <img style="width: 50%" src="/storage/cover_images/{{$bank->cover_image}}">
+                        <hr>                    
+                        <h5>{{$bank->fullname}} ({{$bank->shortname}})</h5>
+                      </center>
+                    </td>
+                    <td class="align-middle align-center">
                       <a href="banks/{{$bank->bank_id}}/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                       <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteBank{{$bank->bank_id}}"><i class="fas fa-trash"></i></a>
                       <div class="modal fade" id="deleteBank{{$bank->bank_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

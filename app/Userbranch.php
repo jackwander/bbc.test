@@ -11,6 +11,9 @@ class Userbranch extends Model
     public $timestamps = true;
     
     public function branches() {
-        return $this->hasMany('App\Branch');
+        return $this->belongsTo('App\Branch');
+    }
+    public function user() {
+        return $this->belongsTo('App\User');
     }
 }

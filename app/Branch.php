@@ -8,7 +8,6 @@ class Branch extends Model
 {
 
     protected $table = 'branches';
-
     public $primaryKey = 'branch_id';
     public $timestamps = true;
 
@@ -18,5 +17,9 @@ class Branch extends Model
 
     public function bank() {
       return $this->belongsTo('App\Bank');
-    }    
+    }
+
+    public function userbranch() {
+        return $this->hasMany('App\Userbranch');
+    }         
 }

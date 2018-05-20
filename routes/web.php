@@ -14,7 +14,7 @@
 Route::get('/', 'PagesController@index');
 Route::resource('/settings/locations','LocationsController');
 Route::resource('/settings/banks','BanksController');
-
+Route::resource('/settings/users','UsersController');
 
 // Route::get('/settings/banks/{bank_id}/locations/{location_id}', [
 //     'as' => 'branches.show', 

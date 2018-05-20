@@ -13,8 +13,8 @@ class InsertAddressAndContactnum extends Migration
      */
     public function up()
     {
-        Schema::table('banks', function (Blueprint $table) {
-            $table->string('address',255)->after('shortname');
+        Schema::table('branches', function (Blueprint $table) {
+            $table->string('address',255)->after('branch_name');
             $table->string('contactnum',50)->after('address');
         });
     }
@@ -26,9 +26,9 @@ class InsertAddressAndContactnum extends Migration
      */
     public function down()
     {
-        Schema::table('banks', function (Blueprint $table) {
+        Schema::table('branches', function (Blueprint $table) {
             $table->dropColumn('address');
-            $table->dropColumn('contactnum');
+            $table->dropColumn('contactnum');   
         });
     }
 }

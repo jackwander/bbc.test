@@ -24,6 +24,6 @@
     @endforeach        
       {{$banks->links()}}
   @else
-      <p>No Location Found</p>
+      <p>No Banks Found</p>
   @endif
 @endsection

@@ -9,15 +9,17 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item" aria-current="page"><a href="/branches">{{$location->city}}</a></li>
-      <li class="breadcrumb-item" aria-current="page"><a href="{{ url()->previous() }}">{{$bank->shortname}}</a></li>
+      <li class="breadcrumb-item" aria-current="page"><a href="/branches/locations/{{$location->location_id}}">{{$bank->shortname}}</a></li>
       <li class="breadcrumb-item active">Branches</li>
     </ol>
   </nav>
   @if(count($branches) > 0)
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-small">
           <thead>
+            <th style="width:5%">Status</th>
             <th>Branch</th>
-            <th>Status</th>
+            <th>Address</th>
+            <th>Contact #</th>
             @if (!Auth::guest())   
             <th><i class="fas fa-cog fa-spin"></i></th>
             @endif
@@ -25,8 +27,19 @@
           <tbody>
             @foreach ($branches as $branch)
               <tr>
-                <td class="align-middle"><h4>{{$branch->branch_name}}</h4></td>
-                <td class="align-middle">@if ($branch->status == '1')<div class="badge badge-success"><h4>Online</h4></div> @elseif ($branch->status == '0') <div class="badge badge-info"><h4>Offline but Open</h4></div> @elseif ($branch->status == '2') <div class="badge badge-danger"><h4>Server Down</h4></div> @elseif ($branch->status == '3')<div class="badge badge-danger"><h4>Closed</h4></div>@endif</td>
+              @if ($branch->status=='0')
+              <td class="table-info align-middle">
+              @elseif ($branch->status=='1') 
+              <td class="table-success align-middle">
+              @elseif ($branch->status=='2')
+              <td class="table-danger align-middle">
+              @elseif ($branch->status=='3')
+              <td class="table-danger align-middle">     
+              @endif         
+                @if ($branch->status == '1')<div class="badge badge-success"><span style="font-weight: bold; font-size: 1.2em">Online</span></div> @elseif ($branch->status == '0') <div class="badge badge-info"><span style="font-weight: bold; font-size: 1.2em">Offline</span></div> @elseif ($branch->status == '2') <div class="badge badge-danger"><span style="font-weight: bold; font-size: 1.2em">Server Down</span></div> @elseif ($branch->status == '3')<div class="badge badge-danger"><span style="font-weight: bold; font-size: 1.2em">Closed</span></div>@endif</td>
+                <td class="align-middle"><span style="font-weight: bold; font-size: 1.2em">{{$branch->branch_name}}</span></td>
+                <td></td>
+                <td></td>
             @if (!Auth::guest())   
                 <td>
                   <div class="btn-group dropleft">
@@ -35,7 +48,7 @@
                     </a>
                     <div class="dropdown-menu">
                       <a href="/branches/status/1/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-success">Online</div></a>
-                      <a href="/branches/status/0/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-info">Offline but open</div></a>
+                      <a href="/branches/status/0/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-info">Offline</div></a>
                       <a href="/branches/status/2/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Server Down</div></a>
                       <a href="/branches/status/3/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Closed</div></a>
                     </div>

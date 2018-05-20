@@ -131,7 +131,7 @@ class BanksController extends Controller
       $bank->fullname = $request->input('fullname');
       $bank->shortname = strtoupper($request->input('shortname'));
       if ($request->hasFile('cover_image')) {
-          $location->cover_image = $fileNameToStore;        
+          $bank->cover_image = $fileNameToStore;        
       }          
       $bank->save();
 

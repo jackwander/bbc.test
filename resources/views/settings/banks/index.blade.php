@@ -7,8 +7,8 @@
           <div class="card-body">
             <table class="table table-striped">
               <thead>
-                <th width="40%">Banks</th>
-                <th><i class="fas fa-cog fa-spin"></i></th>
+                <th width="20%">Banks</th>
+                <th width="50%"><i class="fas fa-cog fa-spin"></i></th>
               </thead>
               <tbody>
                 @foreach ($banks as $bank)
@@ -17,7 +17,7 @@
                       <center>
                         <img style="width: 50%" src="/storage/cover_images/{{$bank->cover_image}}">
                         <hr>                    
-                        <h5>{{$bank->fullname}} ({{$bank->shortname}})</h5>
+                        <h5>{{$bank->fullname}} (<b>{{$bank->shortname}}</b>)</h5>
                       </center>
                     </td>
                     <td class="align-middle align-center">

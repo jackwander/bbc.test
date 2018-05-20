@@ -46,7 +46,7 @@ class BranchesController extends Controller
     {
         $location = Location::find($location_id);
         $bank = Bank::find($bank_id);
-        $branches = DB::table('branches')->where(['bank_id'=>$bank_id,'location_id'=>$location_id])->paginate(10);
+        $branches = DB::table('branches')->orderBy('branch_name','ASC')->where(['bank_id'=>$bank_id,'location_id'=>$location_id])->paginate(10);
 
         return view('settings.branches.branches')->with(['location'=>$location,'bank'=>$bank,'branches'=>$branches]);
     }
@@ -70,11 +70,15 @@ class BranchesController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-          'branch'=>'required'
+          'branch'=>'required',
+          'address'=>'required',
+          'contactnum'=>'required',          
         ]);
       //Create Branch
       $branch = new Branch;
       $branch->branch_name = $request->input('branch');
+      $branch->address = $request->input('address');
+      $branch->contactnum = $request->input('contactnum');      
       $branch->location_id = $request->input('location_id');
       $branch->bank_id = $request->input('bank_id');
       $branch->status = 1;
@@ -130,11 +134,15 @@ class BranchesController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request, [
-          'branch'=>'required'
+          'branch'=>'required',
+          'address'=>'required',
+          'contactnum'=>'required',
         ]);      
       
       $branch = Branch::find($id);
       $branch->branch_name = $request->input('branch');
+      $branch->address = $request->input('address');
+      $branch->contactnum = $request->input('contactnum');      
       $branch->save();
       return redirect('/branches/locations/'.$branch->location_id.'/banks/'.$branch->bank_id)->with('success',$branch->branch_name.' Updated');      
     }

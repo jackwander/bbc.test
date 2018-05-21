@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Bank;
 use App\Branch;
 use App\Location;
+use App\User;
+use App\Userbranch;
 
 class BranchesController extends Controller
 {
@@ -46,9 +48,10 @@ class BranchesController extends Controller
     {
         $location = Location::find($location_id);
         $bank = Bank::find($bank_id);
+        $users = User::orderBy('lname','asc')->where('position', '>', 0)->get();
         $branches = DB::table('branches')->orderBy('branch_name','ASC')->where(['bank_id'=>$bank_id,'location_id'=>$location_id])->paginate(10);
 
-        return view('settings.branches.branches')->with(['location'=>$location,'bank'=>$bank,'branches'=>$branches]);
+        return view('settings.branches.branches')->with(['location'=>$location,'bank'=>$bank,'branches'=>$branches,'users'=>$users]);
     }
 
     /**
@@ -59,6 +62,34 @@ class BranchesController extends Controller
     public function create($location_id, $bank_id)
     {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function assignBranch(Request $request)
+    {
+        $location_id = $request->input('location_id');
+        $bank_id = $request->input('bank_id');
+        $branch_id = $request->input('branch_id');
+        $user_id = $request->input('user_id');
+        $check = DB::table('userbranches')->where(['branch_id'=>$branch_id,'user_id'=>$user_id])->get();
+        $branch = DB::table('branches')->where(['branch_id'=>$branch_id])->first();
+        $user = DB::table('users')->where(['id'=>$user_id])->first();
+        
+        if (count($check)>0) {
+          return redirect('/branches/locations/'.$location_id.'/banks/'.$bank_id)->with('error',$branch->branch_name.' branch is already assigned to '.$user->fname.' '.$user->lname.'.');
+        }
+
+        $userbranch = new Userbranch;
+        $userbranch->branch_id = $branch_id;
+        $userbranch->user_id = $user_id;
+        $userbranch->save();
+
+        return redirect('/branches/locations/'.$location_id.'/banks/'.$bank_id)->with('success', $branch->branch_name.' branch is assigned to '.$user->fname.' '.$user->lname.'.');
     }
 
     /**

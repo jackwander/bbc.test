@@ -31,7 +31,7 @@ Route::get('branches/locations/{location_id}', 'BranchesController@pickBank');
 Route::get('branches/locations/{location_id}/banks/{bank_id}', 'BranchesController@showBranches');
 Route::get('branches/add/{location_id}&{bank_id}','BranchesController@create')->name('branches.create');
 Route::get('branches/status/{status}/branch/{branch_id}', 'BranchesController@editBranchStatus');
-
+Route::post('assign/branch', array('as'=>'assignBranch','uses'=>'BranchesController@assignBranch'));
 
 
 Auth::routes();

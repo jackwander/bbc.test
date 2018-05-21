@@ -3,7 +3,7 @@
 @section('content')
   <a href="/settings/locations" class="btn btn-outline-secondary">Go Back</a>
   <div class="d-flex justify-content-center">
-    <img style="width:50%;height:50%" src="/storage/cover_images/{{$location->cover_image}}">
+    <img style="width:50%;height:50%" class="img-thumbnail rounded" src="/storage/cover_images/{{$location->cover_image}}">
   </div>
   <div class="d-flex justify-content-center">
     <h1>{{$location->city}} ({{$location->shortname}})</h1>

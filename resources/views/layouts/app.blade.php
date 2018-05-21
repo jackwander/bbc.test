@@ -20,6 +20,7 @@
     
     <!--Select 2-->
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/dist/css/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/dist/css/select2-bootstrap4.min.css')}}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

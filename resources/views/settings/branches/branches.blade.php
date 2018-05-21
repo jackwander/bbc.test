@@ -14,6 +14,7 @@
     </ol>
   </nav>
   @if(count($branches) > 0)
+      <div class="table-responsive">        
         <table class="table table-striped table-small">
           <thead>
             <th width="5%">Status</th>
@@ -56,9 +57,47 @@
                       <a href="/branches/status/2/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Server Down</div></a>
                       <a href="/branches/status/3/branch/{{$branch->branch_id}}" class="dropdown-item"><div class="badge badge-danger">Closed</div></a>
                     </div>
-                  </div>                
+                  </div> 
+                  <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#assignBranch{{$branch->branch_id}}"><i class="fas fa-users"></i></a>
+
+                  <!--Modal For Assign-->
+                  <div class="modal fade" id="assignBranch{{$branch->branch_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Assign User to {{$branch->branch_name}}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        {!! Form::open(['action' => 'BranchesController@assignBranch','method' => 'POST']) !!}
+                          @csrf
+                        <div class="modal-body">
+                          <div class="form-group">
+                            {{Form::hidden('location_id',$location->location_id)}}
+                            {{Form::hidden('bank_id',$bank->bank_id)}}
+                            {{Form::hidden('branch_id',$branch->branch_id)}}
+                            {{Form::label('user','User')}}
+                            <select class="form-control" name="user_id" required="" placeholder="Please Choose a User">
+                              <option selected disabled></option>
+                                @foreach ($users as $user)
+                                 <option value="{{$user->id}}">{{$user->lname.', '.$user->fname}}</option>
+                                @endforeach
+                            </select>
+                          </div>      
+                        </div>
+                        <div class="modal-footer">
+                          {{Form::submit('Assign',['class'=>'btn btn-primary'])}}
+                          {!! Form::close() !!}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End of Modal For Assign-->
+
+
                   <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#editBranch{{$branch->branch_id}}"><i class="fas fa-edit"></i></a>
-            @if (!Auth::guest())                  
+                
                   <!--Modal For Edit-->
                   <div class="modal fade" id="editBranch{{$branch->branch_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -117,7 +156,7 @@
                     </div>
                   </div>
                   <!--End of Modal For Edit-->
-                  @endif
+                  
 
                   @if (!Auth::guest())
                   <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteBranch{{$branch->branch_id}}"><i class="fas fa-trash"></i></a>
@@ -146,11 +185,12 @@
                   <!--End of Modal For Delete-->
                   @endif
                 </td>
-                @endif
+              @endif
               </tr>
             @endforeach
           </tbody>
         </table>
+      </div>        
       {{$branches->links()}}
   @else
       <p>No Branches Found</p>

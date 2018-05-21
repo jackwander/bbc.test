@@ -8,22 +8,25 @@
       <li class="breadcrumb-item active">Choose Bank</li>
     </ol>
   </nav>
-  @if(count($banks) > 0)
-      @foreach ($banks as $bank)
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-4 col-sm-4">
-                  <a href="/branches/locations/{{$location->location_id}}/banks/{{$bank->bank_id}}"><img style="width: 75%" src="/storage/cover_images/{{$bank->cover_image}}"></a>
+  <div class="d-flex justify-content-center">
+    <div class="card text-center">
+      <div class="card-body">
+        @if (count($banks) > 0)
+          <div class="d-flex flex-row flex-wrap justify-content-center">
+            @foreach ($banks as $bank)
+              <div class="p-2">
+                <a href="/branches/locations/{{$location->location_id}}/banks/{{$bank->bank_id}}">
+                  <img style="height:50px" class="img-thumbnail rounded" src="/storage/cover_images/{{$bank->cover_image}}">
+                  <p>{{$bank->fullname}}</p>
+                </a>
               </div>
-              <div class="col-md-8 col-sm-8">
-                  <h3><a href="/branches/locations/{{$location->location_id}}/banks/{{$bank->bank_id}}">{{$bank->fullname}}</a></h3>
-              </div>                  
+            @endforeach
           </div>
-        </div>
-    @endforeach        
-      {{$banks->links()}}
-  @else
-      <p>No Banks Found</p>
-  @endif
+        @else
+            <p>No Banks Found</p>
+        @endif    
+      </div>
+    </div>
+  </div>       
+      {{-- {{$banks->links()}} --}}
 @endsection

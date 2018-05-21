@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Bank;
 
 class PagesController extends Controller
 {
     public function index() {
+      $banks = Bank::orderBy('fullname','ASC')->get();
       $title = "Welcome to Bacolod Bank Checker!";
-      return view('pages.index', compact('title'));
+      return view('pages.index')->with(['banks'=>$banks,'title'=>$title]);
     }
 }

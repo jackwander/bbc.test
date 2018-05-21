@@ -15,7 +15,7 @@
                   <tr>
                     <td>
                       <center>
-                        <img style="width: 50%" src="/storage/cover_images/{{$bank->cover_image}}">
+                        <img style="width: 75%" class="img-thumbnail rounded" src="/storage/cover_images/{{$bank->cover_image}}" >
                         <hr>                    
                         <h5>{{$bank->fullname}} (<b>{{$bank->shortname}}</b>)</h5>
                       </center>

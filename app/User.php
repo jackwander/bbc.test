@@ -29,5 +29,8 @@ class User extends Authenticatable
     
     public function userbranches() {
         return $this->hasMany('App\Userbranch');
+    }
+    public function branches() {
+        return $this->hasMany('App\Branch');
     }    
 }

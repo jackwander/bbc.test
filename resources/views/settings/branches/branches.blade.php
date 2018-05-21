@@ -14,6 +14,7 @@
     </ol>
   </nav>
   @if(count($branches) > 0)
+      <div class="table-responsive">        
         <table class="table table-striped table-small">
           <thead>
             <th width="5%">Status</th>
@@ -151,6 +152,7 @@
             @endforeach
           </tbody>
         </table>
+      </div>        
       {{$branches->links()}}
   @else
       <p>No Branches Found</p>

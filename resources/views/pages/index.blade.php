@@ -4,6 +4,8 @@
   <div class="jumbotron text-center">
     <h1>{{$title}}</h1>
     <p>This Application can provide information with regards to the status of every bank in Bacolod City.</p>
-    <p><a href="/login" class="btn btn-primary btn-lg" role="button">Login</a> <a href="/register" class="btn btn-success btn-lg" role="button">Register</a></p>
+    @guest
+      <p><a href="/login" class="btn btn-primary btn-lg" role="button">Login</a></p>
+    @endguest
   </div>
 @endsection

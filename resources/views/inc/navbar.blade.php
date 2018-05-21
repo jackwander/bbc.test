@@ -30,6 +30,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/branches">Branches</a>
+                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Settings
@@ -37,11 +40,9 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/settings/users">Users</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/settings/locations">Location</a>
+                    <a class="dropdown-item" href="/settings/locations">Locations</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/settings/banks">Bank</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/branches">Branch</a>
+                    <a class="dropdown-item" href="/settings/banks">Banks</a>
                   </div>
                 </li>              
                 @endguest

@@ -19,10 +19,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/font-awesome/web-fonts-with-css/css/fontawesome-all.css')}}">
     
     <!--Datatables-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/af-2.2.2/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/datatables/datatables.min.css')}}">
  
-
-    
     <!--Select 2-->
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/dist/css/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/dist/css/select2-bootstrap4.min.css')}}">
@@ -49,7 +47,10 @@
     <script>
         CKEDITOR.replace( 'article-ckeditor' );
     </script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/af-2.2.2/datatables.min.js"></script>
+
+    <!--Datatables-->
+    <script src="{{ asset('plugins/datatables/datatables.min.js')}}"></script>
+
     <!--Assign User form script-->
     <script type="text/javascript">
       $(document).ready(function(){

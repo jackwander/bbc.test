@@ -65,34 +65,6 @@ class BranchesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function assignBranch(Request $request)
-    {
-        $location_id = $request->input('location_id');
-        $bank_id = $request->input('bank_id');
-        $branch_id = $request->input('branch_id');
-        $user_id = $request->input('user_id');
-        $check = DB::table('userbranches')->where(['branch_id'=>$branch_id,'user_id'=>$user_id])->get();
-        $branch = DB::table('branches')->where(['branch_id'=>$branch_id])->first();
-        $user = DB::table('users')->where(['id'=>$user_id])->first();
-        
-        if (count($check)>0) {
-          return redirect('/branches/locations/'.$location_id.'/banks/'.$bank_id)->with('error',$branch->branch_name.' branch is already assigned to '.$user->fname.' '.$user->lname.'.');
-        }
-
-        $userbranch = new Userbranch;
-        $userbranch->branch_id = $branch_id;
-        $userbranch->user_id = $user_id;
-        $userbranch->save();
-
-        return redirect('/branches/locations/'.$location_id.'/banks/'.$bank_id)->with('success', $branch->branch_name.' branch is assigned to '.$user->fname.' '.$user->lname.'.');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

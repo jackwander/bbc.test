@@ -43,6 +43,8 @@
                     <a class="dropdown-item" href="/settings/locations">Locations</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/settings/banks">Banks</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/settings/userbranches">User Branches</a>
                   </div>
                 </li>              
                 @endguest

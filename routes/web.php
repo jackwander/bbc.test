@@ -15,6 +15,11 @@ Route::get('/', 'PagesController@index');
 Route::resource('/settings/locations','LocationsController');
 Route::resource('/settings/banks','BanksController');
 Route::resource('/settings/users','UsersController');
+
+
+Route::get('/settings/users','UsersController@index');
+Route::get('/userdata','UsersController@userdata')->name('datatables.data');
+
 Route::resource('/settings/userbranches','UserBranchesController');
 
 Route::get('/findBranches','UserBranchesController@findBranches');

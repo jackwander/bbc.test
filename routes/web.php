@@ -17,6 +17,7 @@ Route::resource('/settings/banks','BanksController');
 Route::resource('/settings/users','UsersController');
 Route::resource('/settings/userbranches','UserBranchesController');
 
+Route::get('/findBranches','UserBranchesController@findBranches');
 /*
  * For Branches Route 
  */
@@ -27,7 +28,6 @@ Route::get('branches/locations/{location_id}/banks/{bank_id}', 'BranchesControll
 Route::get('branches/add/{location_id}&{bank_id}','BranchesController@create')->name('branches.create');
 Route::get('branches/status/{status}/branch/{branch_id}', 'BranchesController@editBranchStatus');
 Route::post('assign/branch', array('as'=>'assignBranch','uses'=>'BranchesController@assignBranch'));
-
 
 Auth::routes();
 

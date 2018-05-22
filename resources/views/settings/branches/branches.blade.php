@@ -3,7 +3,7 @@
 @section('content')
   <h1><img style="width: 75px;" src="/storage/cover_images/{{$bank->cover_image}}">
   @if (!Auth::guest())   
-    <small><a href="{{ route('branches.create', [$location->location_id, $bank->bank_id]) }}" class="btn btn-secondary" data-toggle="modal" data-target="#addBranch"><i class="fas fa-plus"></i></a></small>
+    <small><a href="{{ route('branches.create', [$location->location_id, $bank->bank_id]) }}" class="btn btn-success" data-toggle="modal" data-target="#addBranch"><i class="fas fa-plus"></i></a></small>
   @endif
   </h1>  
   <nav aria-label="breadcrumb">
@@ -15,7 +15,7 @@
   </nav>
   @if(count($branches) > 0)
       <div class="table-responsive">        
-        <table class="table table-striped table-small">
+        <table class="table table-striped table-small" id="branches">
           <thead>
             <th width="5%">Status</th>
             <th width="15%">Branch</th>
@@ -137,10 +137,32 @@
           </tbody>
         </table>
       </div>        
-      {{$branches->links()}}
   @else
       <p>No Branches Found</p>
   @endif
+@if (!Auth::guest())  
+<script type="text/javascript">
+$(function() {
+    $('#branches').DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": [4,3,2] }
+      ]
+    });
+});
+</script>
+
+@else
+<script type="text/javascript">
+$(function() {
+    $('#branches').DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": [3,2] }
+      ]
+    });
+});
+</script>
+
+@endif
 @endsection
 
 @if (!Auth::guest())

@@ -4,7 +4,7 @@
   
     <h1>Bank Personnel Branch Responsibilty <small><a href="userbranches/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
     @if (count($usb) > 0)
-      <table class="table table-striped table-hover">
+      <table id="usb" class="table table-striped table-hover">
         <thead>
           <th>Name</th>
           <th>Location</th>
@@ -49,4 +49,15 @@
     @else
       <p>No Users Responsibility</p>
     @endif
+
+<script type="text/javascript">
+$(function() {
+    $('#usb').DataTable({
+      "columnDefs": [
+        { "orderable": false, "targets": 3 }
+      ]
+    });
+});
+</script>    
+
 @endsection

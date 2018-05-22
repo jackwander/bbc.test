@@ -2,7 +2,7 @@
 
 @section('content')
   
-    <h1>Bank Personnel Branch Responsibilty <small><a href="userbranches/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
+    <h1>Bank Personnel Branch Responsibilty <small><a href="userbranches/create" class="btn btn-success"><i class="fas fa-user-plus"></i></a></small></h1>
     @if (count($usb) > 0)
       <table id="usb" class="table table-striped table-hover">
         <thead>

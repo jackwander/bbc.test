@@ -13,6 +13,7 @@ use App\Branch;
 use App\Location;
 use App\User;
 use App\Userbranch;
+use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
@@ -23,8 +24,23 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('lname','asc')->where('position','>',0)->paginate(10);
-        return view('settings.users.index')->with('users',$users);        
+        return view('settings.users.index');        
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userdata()
+    {
+        $users = User::orderBy('lname','asc')->where('position','>',0)->get();
+        return Datatables::of($users)
+            ->addColumn('action', function ($user) {
+                return '<a href="show/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fas fa-search"></i>View</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->removeColumn('password')
+            ->make(true);
     }
     
     /**

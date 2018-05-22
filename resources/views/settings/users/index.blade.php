@@ -2,26 +2,34 @@
 
 @section('content')
   
-    <h1>Users <small><a href="/settings/users/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
-  @if(count($users) > 0)
-      <table class="table table-striped table-hover">
-        <thead class="thead-dark">
-          <th>Name</th>
-          <th>Email</th>
-          <th>Position</th>
-        </thead>
-        <tbody>
-          @foreach ($users as $user)
-            <tr>
-              <td>{{$user->fname.' '.$user->lname}} </td>
-              <td>{{$user->email}}</td>
-              <td>{{ ('Bank Officer' )}}</td>
-            </tr>
-          @endforeach          
-        </tbody>
-      </table>
-      {{$users->links()}}
-  @else
-      <p>No Users Found</p>
-  @endif
+    <h1>Bank Officers <small><a href="/settings/users/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
+    <div class="card">
+      <div class="card-body table-responsive">
+        <table class="table table-striped table-hover" id="users-table">
+          <thead class="thead-dark">
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </thead>
+        </table>
+      </div>
+    </div>
+<script>
+$(function() {
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('datatables.data') !!}',
+        columns: [
+            { data: 'fname', name: 'fname' },
+            { data: 'mname', name: 'mname' },
+            { data: 'lname', name: 'lname' },
+            { data: 'email', name: 'email' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
+        ],
+    });
+});
+</script>
 @endsection

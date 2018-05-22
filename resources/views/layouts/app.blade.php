@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Negros Bank Checker') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -31,12 +31,16 @@
 <body>
     <div id="app">
         @include('inc.navbar')
-        <main class="py-4">
+        <br/>
+        <br/>
+        <main class="py-4" style="min-height: 100vh">
             <div class="container">
                 @include('inc.messages')
                 @yield('content')
             </div>
         </main>
+        @include('inc.footer')
+
     </div>
     </div>
     <!-- Scripts -->

@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name', 'Negros Bank Checker') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,30 +12,27 @@
             <ul class="navbar-nav mr-auto">
               @guest
                 <li class="nav-item">
-                  <a class="nav-link" href="/">Home</a>
+                  <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="/branches">Branches</a>
+                    <a class="nav-link" href="/branches"><i class="fas fa-warehouse"></i> Branches</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/posts">Blog</a>
+                  <a class="nav-link" href="/about"><i class="fas fa-info"></i> About</a>
                 </li>
               @else
                 <li class="nav-item">
-                  <a class="nav-link" href="/">Home</a>
+                  <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/dashboard">Dashboard</a>
+                  <a class="nav-link" href="/dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/branches">Branches</a>
+                  <a class="nav-link" href="/branches"><i class="fas fa-warehouse"></i> Branches</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Settings
+                    <i class="fas fa-cog"></i> Settings
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/settings/users">Users</a>
@@ -54,8 +51,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                    <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                    <li><a class="nav-link" href="{{ route('login') }}"><i class="fas fa-user"></i>  {{ __('Login') }}</a></li>
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

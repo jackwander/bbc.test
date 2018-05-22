@@ -3,11 +3,13 @@
 @section('content')
   <h1>Banks <small><a href="banks/create" class="btn btn-secondary"><i class="fas fa-plus"></i></a></small></h1>
   @if(count($banks) > 0)
+    <div class="row justify-content-center">
+      <div class="col-md-8">
         <div class="card">
           <div class="card-body">
             <table class="table table-striped">
               <thead>
-                <th width="20%">Banks</th>
+                <th width="50%">Banks</th>
                 <th width="50%"><i class="fas fa-cog fa-spin"></i></th>
               </thead>
               <tbody>
@@ -21,8 +23,10 @@
                       </center>
                     </td>
                     <td class="align-middle align-center">
-                      <a href="banks/{{$bank->bank_id}}/edit" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteBank{{$bank->bank_id}}"><i class="fas fa-trash"></i></a>
+                      <a href="banks/{{$bank->bank_id}}/edit" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                      <br/>
+                      <br/>
+                      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteBank{{$bank->bank_id}}"><i class="fas fa-trash"></i> Delete</a>
                       <div class="modal fade" id="deleteBank{{$bank->bank_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -51,6 +55,8 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
       {{$banks->links()}}
   @else
       <p>No Banks Found</p>

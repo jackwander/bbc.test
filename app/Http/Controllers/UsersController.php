@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Bank;
 use App\Branch;
 use App\Location;
@@ -17,6 +19,10 @@ use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {   
+        $this->middleware('auth');
+    }     
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +30,11 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $check_id = Auth::id();
+        $user = User::find($check_id);
+        if ($user->position>0) {
+          return redirect('/')->with('error','Unauthorized Access');
+        }        
         return view('settings.users.index');        
     }
     /**
@@ -36,7 +47,7 @@ class UsersController extends Controller
         $users = User::orderBy('lname','asc')->where('position','>',0)->get();
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-                return '<a href="show/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fas fa-search"></i>View</a>';
+                return '<a href="users/'.$user->id.'" class="btn btn-xs btn-primary"><i class="fas fa-search"></i>View</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->removeColumn('password')
@@ -66,6 +77,11 @@ class UsersController extends Controller
      */
     protected function create()
     {
+        if ($user->position>0) {
+          return redirect('/')->with('error','Unauthorized Access');
+        }        
+        $id = Auth::id();
+        $user = User::find($id);
         return view('settings.users.create');
     }
 
@@ -95,7 +111,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $assignedB = count(DB::table('userbranches')->where([['user_id','=',$user->id]])->get());
+        return view('settings.users.show')->with(['user'=>$user,'assignedB'=>$assignedB]);        
     }
 
     /**
@@ -129,6 +147,14 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $check_id = Auth::id();
+        $log_user = User::find($check_id);
+        if ($log_user->position>0) {
+          return redirect('/')->with('error','Unauthorized Access');
+        }           
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/settings/users/')->with('success',$user->fname.' '.$user->lname.' Removed');
     }
 }

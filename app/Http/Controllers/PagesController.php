@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bank;
+use App\User;
 
 class PagesController extends Controller
 {

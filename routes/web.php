@@ -15,6 +15,7 @@ Route::get('/', 'PagesController@index');
 Route::resource('/settings/locations','LocationsController');
 Route::resource('/settings/banks','BanksController');
 Route::resource('/settings/users','UsersController');
+Route::resource('/profile','UsersController');
 
 
 Route::get('/settings/users','UsersController@index');

@@ -149,9 +149,9 @@ class UsersController extends Controller
     {
         $check_id = Auth::id();
         $log_user = User::find($check_id);
-        if ($log_user->position>0) {
+        if ($log_user->position > 0 OR $check_id != $log_user->id) {
           return redirect('/')->with('error','Unauthorized Access');
-        }           
+        }
         $user = User::find($id);
         $user->delete();
 

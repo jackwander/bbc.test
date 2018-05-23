@@ -41,6 +41,7 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a href="/profile/{{Auth::user()->id}}" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>          
           <a href="/dashboard" class="dropdown-item"><i class="fas fa-chart-bar"></i> Dashboard</a>
           <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}"

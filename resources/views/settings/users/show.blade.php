@@ -40,7 +40,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fas fa-user-circle"></i></div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" value="@if ($user->position>0) Bank Personnel @endif" readonly="">
+                <input type="text" class="form-control" id="inlineFormInputGroup" value="@if ($user->position>0) Bank Personnel @else Admin @endif" readonly="">
               </div>
             </div>      
             <div class="mb-3">
@@ -57,10 +57,14 @@
           </div>      
           <div class="card-footer">
             <div class="float-left">
-              <a href="/settings/users/{{$user->id}}/edit" class="btn btn-warning"><i class="fas fa-user-edit"></i> Edit</a>
+              @if (Auth::user()->position>0)
+                <a href="/profile/{{$user->id}}/edit" class="btn btn-warning"><i class="fas fa-user-edit"></i> Edit</a>
+              @else
+                <a href="/settings/users/{{$user->id}}/edit" class="btn btn-warning"><i class="fas fa-user-edit"></i> Edit</a>
+              @endif
             </div>
             <div class="float-right">
-             @if (Auth::user()->position==0)
+             @if (Auth::user()->position==0 AND Auth::user()->id != $user->id)
               <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{$user->id}}"><i class="fas fa-trash"></i> Delete</a>
               <div class="modal fade" id="deleteUser{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

@@ -18,6 +18,7 @@ Route::resource('/settings/users','UsersController');
 Route::resource('/profile','UsersController');
 
 
+Route::post('edit/user/',array('as'=>'editUser','uses'=>'UsersController@editUser'));
 Route::get('/settings/users','UsersController@index');
 Route::get('/userdata','UsersController@userdata')->name('datatables.data');
 

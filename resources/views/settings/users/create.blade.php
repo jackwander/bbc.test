@@ -8,8 +8,8 @@
                 <div class="card-header">{{ __('Add User') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+            {!! Form::open(['action' => 'UsersController@store','medthod' => 'POST']) !!}
+              @csrf
 
                         <div class="form-group row">
                             <label for="fname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
@@ -54,6 +54,21 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="contactnum" class="col-md-4 col-form-label text-md-right">{{ __('Mobile Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="contactnum" type="text" class="form-control{{ $errors->has('contactnum') ? ' is-invalid' : '' }}" name="contactnum" value="{{ old('contactnum') }}" required>
+
+                                @if ($errors->has('contactnum'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('contactnum') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
@@ -89,6 +104,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}</label>
+
+                            <div class="col-md-6">
+                              <select id="locations" name="location" required="" class="select form-control{{ $errors->has('location_id') ? ' is-invalid' : '' }}">
+                                <option selected="" disabled=""></option>
+                                @foreach ($locations as $location)
+                                  <option value="{{ $location->location_id }}">{{$location->city}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                           <label class="col-md-4 col-form-label text-md-right">{{ ('Position') }}</label>
                             <div class="col-md-6">
                                 <select id="position" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}" name="position" required>
@@ -101,7 +128,7 @@
                                         <strong>{{ $errors->first('position') }}</strong>
                                     </span>
                                 @endif
-                            </div>                          
+                            </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

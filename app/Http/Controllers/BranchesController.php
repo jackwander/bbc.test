@@ -49,7 +49,7 @@ class BranchesController extends Controller
         $location = Location::find($location_id);
         $bank = Bank::find($bank_id);
         $users = User::orderBy('lname','asc')->where('position', '>', 0)->get();
-        $branches = DB::table('branches')->orderBy('branch_name','ASC')->where(['bank_id'=>$bank_id,'location_id'=>$location_id])->paginate(10);
+        $branches = DB::table('branches')->orderBy('branch_name','ASC')->where(['bank_id'=>$bank_id,'location_id'=>$location_id])->get();
 
         return view('settings.branches.branches')->with(['location'=>$location,'bank'=>$bank,'branches'=>$branches,'users'=>$users]);
     }

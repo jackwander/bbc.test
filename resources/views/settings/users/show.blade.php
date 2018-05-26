@@ -31,7 +31,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fas fa-phone"></i></div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" value="{{$user->email}}" readonly="">
+                <input type="text" class="form-control" id="inlineFormInputGroup" value="{{$user->contactnum}}" readonly="">
               </div>          
             </div>              
             <div class="mb-3">

@@ -20,9 +20,9 @@ use Yajra\Datatables\Datatables;
 class UsersController extends Controller
 {
     public function __construct()
-    {   
+    {
         $this->middleware('auth');
-    }     
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +53,7 @@ class UsersController extends Controller
             ->removeColumn('password')
             ->make(true);
     }
-    
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -77,30 +77,45 @@ class UsersController extends Controller
      */
     protected function create()
     {
-        if ($user->position>0) {
-          return redirect('/')->with('error','Unauthorized Access');
-        }        
         $id = Auth::id();
         $user = User::find($id);
-        return view('settings.users.create');
+        if ($user->position>0) {
+          return redirect('/')->with('error','Unauthorized Access');
+        }
+        $locations = Location::all();
+        return view('settings.users.create')->with('locations',$locations);
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Create a new user instance after a valid registration.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  array  $data
+     * @return \App\User
      */
     public function store(Request $request)
     {
       $this->validate($request, [
-            'fname' => 'required|string|max:255',
-            'mname' => 'required|string|max:255',
-            'lname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);        
+          'fname' => 'required|string|max:150',
+          'mname' => 'required|string|max:150',
+          'lname' => 'required|string|max:150',
+          'email' => 'required|string|email|max:255|unique:users',
+          'contactnum' => 'required|numeric',
+          'password' => 'required|string|min:6|confirmed',
+          'position' => 'required',
+          'location' => 'required',
+        ]);
+
+        User::create([
+            'fname' => ucfirst($request->input(['fname'])),
+            'mname' => ucfirst($request->input(['mname'])),
+            'lname' => ucfirst($request->input(['lname'])),
+            'email' => $request->input(['email']),
+            'password' => Hash::make($request->input(['password'])),
+            'contactnum' => $request->input(['contactnum']),
+            'location_id' => $request->input(['location']),
+            'position' =>  $request->input(['position']),
+        ]);
+        return redirect('/settings/users/')->with('success',ucfirst($request->input(['fname'])).' '.ucfirst($request->input(['lname'])).' is added');
     }
 
     /**
@@ -124,7 +139,15 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $check_id = Auth::id();
+        $check_user = User::find($check_id);
+        if ($check_user->position > 0 AND $check_id!=$id) {
+          return redirect('/')->with('error','Unauthorized Access');
+        }
+        $user = User::find($id);
+        $locations = Location::select('location_id','city')->where([['location_id','!=',$user->location_id]])->orderBy('city','ASC')->get();
+        $assignedB = count(DB::table('userbranches')->where([['user_id','=',$user->id]])->get());
+        return view('settings.users.edit')->with(['user'=>$user,'assignedB'=>$assignedB,'locations'=>$locations]);
     }
 
     /**
@@ -136,7 +159,28 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request, [
+          'fname' => 'required|string|max:150',
+          'mname' => 'required|string|max:150',
+          'lname' => 'required|string|max:150',
+          'contactnum' => 'required|numeric',
+          'address' => 'required',
+        ]);
+
+      $user = User::find($id);
+      $user->fname = ucfirst($request->input('fname'));
+      $user->mname = ucfirst($request->input('mname'));
+      $user->lname = ucfirst($request->input('lname'));
+      $user->contactnum = $request->input('contactnum');
+      $user->location_id = $request->input('address');
+      $user->save();
+
+      if (Auth::id()>0) {
+        return redirect('/profile/'.$id)->with('success','Changes on your profile are saved');
+      }else{
+        return redirect('/settings/users/'.$id)->with('success','Changes on '.$user->fname.' '.$user->lname.' are saved');
+      }
+
     }
 
     /**

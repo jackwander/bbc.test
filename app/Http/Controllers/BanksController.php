@@ -19,7 +19,7 @@ class BanksController extends Controller
      */
     public function index()
     {
-        $banks = Bank::orderBy('created_at','desc')->paginate(10);
+        $banks = Bank::orderBy('fullname','ASC')->paginate(10);
         return view('settings.banks.index')->with('banks',$banks);
     }
     /**
